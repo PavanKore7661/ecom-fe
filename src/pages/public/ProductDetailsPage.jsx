@@ -11,7 +11,7 @@ function ProductDetailsPage() {
   const { addToCart } = useContext(CartContext);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-
+console.log('aaaaa----',product);
   useEffect(() => {
     fetchProduct();
   }, []);
@@ -38,11 +38,14 @@ function ProductDetailsPage() {
         {/* Image */}
         <div>
           <img
-            src={
-              product.imageUrl
-                ? product.imageUrl
-                : "https://via.placeholder.com/500"
-            }
+            src={`http://localhost:8090/uploads/${product.imageUrl}`}
+                                    alt="Product"
+                                style={{
+                                    width:150,
+                                    height:150,
+                                    objectFit:"cover",
+                                    borderRadius:18
+                                }}
             alt={product.name}
             className="w-full rounded-lg"
           />
@@ -56,11 +59,16 @@ function ProductDetailsPage() {
 
           <p className="text-3xl font-bold mt-6">₹ {product.price}</p>
 
+          <p className="text-gray-600 mt-4">Available Stock: {product.stockQuantity}</p>
+
           <button
             onClick={() => addToCart(product.id, 1)}
-            className="bg-black text-white px-6 py-3 rounded mt-8"
+            disabled={product.stockQuantity <= 0}
+            className={`px-6 py-3 rounded mt-8 text-white ${
+              product.stockQuantity > 0 ? "bg-black" : "bg-gray-400 cursor-not-allowed"
+            }`}
           >
-            Add To Cart
+            {product.stockQuantity > 0 ? "Add To Cart" : "Out Of Stock"}
           </button>
         </div>
       </div>

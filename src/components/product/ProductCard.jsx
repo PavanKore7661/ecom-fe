@@ -2,26 +2,44 @@ import { useNavigate } from "react-router-dom";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
+
   return (
-    <div
-      className="border rounded-lg p-4 shadow cursor-pointer"
-      onClick={() => navigate(`/products/${product.id}`)}
-    >
-      <img
-        src="https://via.placeholder.com/200"
-        alt={product.name}
-        className="w-full h-48 object-cover rounded"
-      />
+    <div className="border rounded-lg shadow-md bg-white overflow-hidden p-4">
 
-      <h2 className="text-xl font-semibold mt-3">{product.name}</h2>
+      {/* Image and Details Side by Side */}
+      <div className="flex gap-4">
 
-      <p className="text-gray-600 mt-2">{product.description}</p>
+        {/* Left Side - Image */}
+        <div className="w-1/2">
+          <img
+            src={`http://localhost:8090/uploads/${product.imageUrl}`}
+            alt={product.name}
+            className="w-full h-48 object-cover rounded-lg"
+          />
+        </div>
 
-      <p className="text-2xl font-bold mt-3">₹ {product.price}</p>
+        {/* Right Side - Details */}
+        <div className="w-1/2 flex flex-col justify-center">
+          <h2 className="text-xl font-bold">{product.name}</h2>
 
-      <button className="bg-black text-white px-4 py-2 mt-4 rounded w-full">
-        Add To Cart
+          <p className="text-gray-600 mt-2 text-sm">
+            {product.description}
+          </p>
+
+          <p className="text-2xl font-bold text-green-600 mt-4">
+            ₹ {product.price}
+          </p>
+        </div>
+      </div>
+
+      {/* Bottom Button */}
+      <button
+        onClick={() => navigate(`/products/${product.id}`)}
+        className="w-full mt-5 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold"
+      >
+        View Details
       </button>
+
     </div>
   );
 }

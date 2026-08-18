@@ -52,3 +52,35 @@ export const filterProducts = async (
 
   return response.data;
 };
+
+export const getAllProducts = async () => {
+    const response = await api.get("/products/all");
+    return response.data;
+};
+
+export const deleteProduct = async (id) => {
+    await api.delete(`/products/${id}`);
+};
+
+export const createProduct = async (product) => {
+    const response = await api.post("/products", product);
+    return response.data;
+};
+
+export const updateProduct = async (id, product) => {
+    const response = await api.put(`/products/${id}`, product);
+    return response.data;
+};
+
+export const uploadProductImage = async (productId, image) => {
+    const formData = new FormData();
+    formData.append("image", image);
+    const response = await api.post(`/products/${productId}/image`,formData,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }
+    );
+    return response.data;
+};

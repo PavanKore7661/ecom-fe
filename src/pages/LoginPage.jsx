@@ -19,8 +19,10 @@ function LoginPage() {
 
       console.log("login response", response);
       localStorage.setItem("token", response.token);
+      localStorage.setItem("role", response.role);
+      localStorage.setItem("email",response.email);
       console.log(localStorage.getItem("token"));
-      alert(localStorage.getItem("token"));
+      //alert(localStorage.getItem("token"));
       //navigate("/");
       window.location.href = "/";
     } catch (error) {
